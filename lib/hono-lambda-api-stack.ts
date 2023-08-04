@@ -12,6 +12,9 @@ export class HonoLambdaApiStack extends cdk.Stack {
       entry: 'lambda/index.ts',
       handler: 'handler',
       runtime: lambda.Runtime.NODEJS_18_X,
+      bundling: {
+        minify: true,
+      },
     });
     fn.addFunctionUrl({
       authType: lambda.FunctionUrlAuthType.NONE,
