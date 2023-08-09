@@ -13,14 +13,14 @@ jobs:
       - name: Set up pnpm
         uses: pnpm/action-setup@v2.2.4
         with:
-          version: '6.7.1'
+          version: '8.6.12'
       - name: Set up node@18
         uses: actions/setup-node@v3
         with:
           cache: 'pnpm'
           node-version: 18
       - name: Install dependencies
-        run: pnpm i --ignore-scripts
+        run: pnpm install
       - name: Install cdk
         run: pnpm i -g aws-cdk
       - name: Configure AWS credentials
