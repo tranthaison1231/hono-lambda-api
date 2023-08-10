@@ -2,11 +2,11 @@ import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as apigw from 'aws-cdk-lib/aws-apigateway';
-import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
-import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 
-export class HonoLambdaApiStack extends cdk.Stack {
+export class RestApiStack extends cdk.Stack {
+  restApi: cdk.aws_apigateway.RestApi;
+
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
@@ -25,15 +25,6 @@ export class HonoLambdaApiStack extends cdk.Stack {
     const api = new apigw.LambdaRestApi(this, 'myapi', {
       handler: fn,
     });
-
-    const distribution = new cloudfront.Distribution(this, 'distribution', {
-      defaultBehavior: {
-        origin: new origins.HttpOrigin(api.url),
-      },
-    });
-
-    new cdk.CfnOutput(this, 'CloudFrontDomainName', {
-      value: distribution.distributionDomainName,
-    });
+    this.restApi = api;
   }
 }

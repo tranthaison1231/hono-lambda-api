@@ -32,5 +32,5 @@ jobs:
       - name: Run build
         run: pnpm run build
       - name: Deploy to AWS
-        run: cdk deploy
+        run: cdk deploy --all
 

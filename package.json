@@ -2,7 +2,7 @@
   "name": "hono-lambda-api",
   "version": "0.1.0",
   "bin": {
-    "hono-lambda-api": "bin/hono-lambda-api.js"
+    "infra": "bin/infra.js"
   },
   "scripts": {
     "build": "tsc",
