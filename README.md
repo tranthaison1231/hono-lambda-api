@@ -16,3 +16,4 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
 ### Extra resources
 
 - https://github.com/oieduardorabelo/cdk-cloudfront-behavior-api-gateway-waf-protection/tree/main
+- https://gist.github.com/skorfmann/6941326b2dd75f52cb67e1853c5f8601
