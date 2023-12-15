@@ -4,7 +4,9 @@ import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as apigw from 'aws-cdk-lib/aws-apigateway';
 import { NodejsFunction } from 'aws-cdk-lib/aws-lambda-nodejs';
 
-export class HonoLambdaApiStack extends cdk.Stack {
+export class RestApiStack extends cdk.Stack {
+  restApi: cdk.aws_apigateway.RestApi;
+
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
@@ -19,8 +21,10 @@ export class HonoLambdaApiStack extends cdk.Stack {
     fn.addFunctionUrl({
       authType: lambda.FunctionUrlAuthType.NONE,
     });
-    new apigw.LambdaRestApi(this, 'myapi', {
+
+    const api = new apigw.LambdaRestApi(this, 'myapi', {
       handler: fn,
     });
+    this.restApi = api;
   }
 }

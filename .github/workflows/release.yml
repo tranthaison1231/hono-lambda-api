@@ -1,0 +1,36 @@
+name: AWS Service CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v2.2.4
+        with:
+          version: '8.6.12'
+      - name: Set up node@18
+        uses: actions/setup-node@v3
+        with:
+          cache: 'pnpm'
+          node-version: 18
+      - name: Install dependencies
+        run: pnpm install
+      - name: Install cdk
+        run: pnpm i -g aws-cdk
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      - name: Run build
+        run: pnpm run build
+      - name: Deploy to AWS
+        run: cdk deploy --all
+
